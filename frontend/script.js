@@ -1,7 +1,10 @@
 // URL pública del backend desplegado en Render.
-// Reemplazar por la URL real una vez creado el servicio en Render,
-// por ejemplo: "https://docker-tp-backend.onrender.com"
-const BACKEND_URL = "https://docker-tp-backend.onrender.com";
+// Reemplazar por la URL real que muestra el panel de Render.
+// En local (localhost) se usa /api, que nginx redirige al backend.
+const BACKEND_URL =
+    location.hostname === "localhost"
+        ? "/api"
+        : "https://docker-tp.onrender.com";
 
 async function cargarUsuario() {
     const mensaje = document.getElementById("mensaje");
