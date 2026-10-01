@@ -1,9 +1,35 @@
+import os
+
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import text
 
 from database import SessionLocal
 
 app = FastAPI()
+
+# Orígenes permitidos para CORS. En Render, configurar la variable de
+# entorno FRONTEND_URL con la URL pública del frontend en Vercel
+# (ej: https://docker-tp.vercel.app), separando varias con comas si hace falta.
+origenes_permitidos = [
+    "http://localhost",
+    "http://localhost:80",
+    "http://localhost:5500",
+]
+
+frontend_url = os.getenv("FRONTEND_URL")
+if frontend_url:
+    origenes_permitidos.extend(
+        origen.strip() for origen in frontend_url.split(",")
+    )
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origenes_permitidos,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/")
