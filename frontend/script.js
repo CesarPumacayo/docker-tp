@@ -4,7 +4,7 @@
 const BACKEND_URL =
     location.hostname === "localhost"
         ? "/api"
-        : "https://docker-tp.onrender.com";
+        : "https://docker-tp-xcb2.onrender.com";
 
 async function cargarUsuario() {
     const mensaje = document.getElementById("mensaje");
